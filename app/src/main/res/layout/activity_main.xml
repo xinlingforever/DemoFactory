@@ -15,5 +15,22 @@
         android:layout_height="wrap_content"
         app:rainbowbar_color="@android:color/holo_blue_bright"
         app:rainbowbar_hspace="50dp"
-        app:rainbowbar_vspace="5dp" />
+        app:rainbowbar_vspace="5dp"
+        android:id="@+id/ranbowbar"/>
+
+    <!--<com.xx.demoproject.demofactory.customviews.RainbowBar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:rainbowbar_color="@android:color/holo_red_light"-->
+        <!--app:rainbowbar_hspace="100dp"-->
+        <!--app:rainbowbar_vspace="20dp"-->
+        <!--android:layout_marginTop="100dp"/>-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn"
+        android:text="go"
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>

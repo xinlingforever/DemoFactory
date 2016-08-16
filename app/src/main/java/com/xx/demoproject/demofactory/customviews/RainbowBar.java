@@ -11,12 +11,28 @@ import android.view.View;
 
 import com.xx.demoproject.demofactory.R;
 import com.xx.demoproject.demofactory.Utils.DensityUtil;
+import com.xx.demoproject.demofactory.env.AppEnv;
 
 /**
  * Created by xx on 8/13/16.
  */
 public class RainbowBar extends View {
 
+    protected static final boolean DEBUG = AppEnv.DEBUG;
+    protected static final String TAG = "RainbowBar";
+
+    private boolean mIsStop = false;
+
+    private int[] COLOR_ARRAY = {
+            Color.parseColor("red"),
+            Color.parseColor("yellow"),
+            Color.parseColor("green"),
+            Color.parseColor("gray"),
+            Color.parseColor("blue"),
+            Color.parseColor("purple"),
+            Color.parseColor("cyan")};
+
+    private int mResIndexLatter = 0;
     private int mBarColor = Color.parseColor("#1E88E5");
     private int mHSpace = DensityUtil.dip2px(mContext, 80);
     private int mVSpace = DensityUtil.dip2px(mContext, 4);
@@ -41,7 +57,7 @@ public class RainbowBar extends View {
         mHSpace = typedArray.getDimensionPixelSize(R.styleable.rainbowbar_rainbowbar_hspace, mHSpace);
         mVSpace = typedArray.getDimensionPixelOffset(R.styleable.rainbowbar_rainbowbar_vspace, mVSpace);
         mBarColor = typedArray.getColor(R.styleable.rainbowbar_rainbowbar_color, mBarColor);
-        Log.d("xx","H:"+DensityUtil.px2dip(context, mHSpace)+" V:"+DensityUtil.px2dip(context, mVSpace)+" B:"+mBarColor);
+        logout("H:"+DensityUtil.px2dip(context, mHSpace)+" V:"+DensityUtil.px2dip(context, mVSpace)+" B:"+mBarColor);
         typedArray.recycle();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -51,42 +67,80 @@ public class RainbowBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        //Log.d("xx", "onDraw()");
+        logout("onDraw()");
+        //Nothing to in super class
         super.onDraw(canvas);
         //get screen width
         float sw = this.getMeasuredWidth();
+        logout("getMeasuredWidth:"+sw+" mStartX:"+mStartX+" mHSpace:"+mHSpace+" mSpace:"+mSpace+" mDelta:"+mDelta);
+
         if (mStartX >= sw + (mHSpace + mSpace) - (sw % (mHSpace + mSpace))) {
             mStartX = 0;
+            mResIndexLatter += 1;
+            if (mResIndexLatter > COLOR_ARRAY.length - 1){
+                mResIndexLatter = 0;
+            }
         } else {
             mStartX += mDelta;
         }
         float start = mStartX;
+
         // draw latter parse
+        int index = mResIndexLatter;
         while (start < sw) {
+            mPaint.setColor(COLOR_ARRAY[index]);
+            index++;
+            if (index >= COLOR_ARRAY.length){
+                index = 0;
+            }
+            logout("start:"+start+" sw:"+sw);
             canvas.drawLine(start, 5, start + mHSpace, 5, mPaint);
             start += (mHSpace + mSpace);
         }
-
+        logout("after latter parse, start:"+start+" mStartX:"+mStartX);
         start = mStartX - mSpace - mHSpace;
 
         // draw front parse
+        index = mResIndexLatter - 1;
         while (start >= -mHSpace) {
+            if (index < 0){
+                index = COLOR_ARRAY.length - 1;
+            }
+            mPaint.setColor(COLOR_ARRAY[index]);
+            index--;
             canvas.drawLine(start, 5, start + mHSpace, 5, mPaint);
             start -= (mHSpace + mSpace);
         }
+
         //refresh onDraw()
-        invalidate();
+        if (!mIsStop) {
+            invalidate();
+        }
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom){
-        //Log.d("xx","onLayout()");
+        logout("onLayout");
         super.onLayout(changed, left, top, right, bottom);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //Log.d("xx","onMeasure()");
+        logout("onMeasure()");
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void logout(final String trace){
+        if (DEBUG){
+            Log.d(TAG, trace);
+        }
+    }
+
+    public void setStopFlag(final boolean isStop) {
+        mIsStop = isStop;
+    }
+
+    public boolean getStopFlag(){
+        return mIsStop;
     }
 }
