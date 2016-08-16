@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.xx.demoproject.demofactory.R;
-import com.xx.demoproject.demofactory.Utils.DensityUtil;
+import com.xx.demoproject.demofactory.utils.DensityUtil;
 import com.xx.demoproject.demofactory.env.AppEnv;
 
 /**
@@ -18,7 +18,6 @@ import com.xx.demoproject.demofactory.env.AppEnv;
  */
 public class RainbowBar extends View {
 
-    protected static final boolean DEBUG = AppEnv.DEBUG;
     protected static final String TAG = "RainbowBar";
 
     private boolean mIsStop = false;
@@ -131,7 +130,7 @@ public class RainbowBar extends View {
     }
 
     private void logout(final String trace){
-        if (DEBUG){
+        if (AppEnv.DEBUG){
             Log.d(TAG, trace);
         }
     }

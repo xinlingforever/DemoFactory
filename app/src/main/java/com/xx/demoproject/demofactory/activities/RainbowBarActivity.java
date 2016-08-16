@@ -1,13 +1,23 @@
-package com.xx.demoproject.demofactory;
+package com.xx.demoproject.demofactory.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.xx.demoproject.demofactory.R;
 import com.xx.demoproject.demofactory.customviews.RainbowBar;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * CustomerView Demo
+ *
+ * */
+
+public class RainbowBarActivity extends Activity {
 
     private Button mBtn;
     private RainbowBar mRainbowBar;
@@ -15,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_rainbow_bar);
 
         mRainbowBar = (RainbowBar) findViewById(R.id.ranbowbar);
 
@@ -33,4 +43,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

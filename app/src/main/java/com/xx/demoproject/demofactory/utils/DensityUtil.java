@@ -1,4 +1,4 @@
-package com.xx.demoproject.demofactory.Utils;
+package com.xx.demoproject.demofactory.utils;
 
 import android.content.Context;
 
