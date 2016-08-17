@@ -36,13 +36,13 @@ public class NinePhotoView extends ViewGroup {
             R.drawable.image_8 };
 
     // horizontal space among children views
-    int hSpace = DensityUtil.dip2px(mContext, 10);
+    int mHSpace = DensityUtil.dip2px(mContext, 10);
     // vertical space among children views
-    int vSpace = DensityUtil.dip2px(mContext, 10);
+    int mVSpace = DensityUtil.dip2px(mContext, 10);
 
     // every child view width and height.
-    int childWidth = 0;
-    int childHeight = 0;
+    int mChildWidth = 0;
+    int mChildHeight = 0;
 
     // store images res id
     List<Integer> mImageResArrayList = new ArrayList<Integer>(9);
@@ -61,10 +61,10 @@ public class NinePhotoView extends ViewGroup {
 
         TypedArray t = context.obtainStyledAttributes(attrs,
                 R.styleable.ninephoto, 0, 0);
-        hSpace = t.getDimensionPixelSize(
-                R.styleable.ninephoto_ninephoto_hspace, hSpace);
-        vSpace = t.getDimensionPixelSize(
-                R.styleable.ninephoto_ninephoto_hspace, vSpace);
+        mHSpace = t.getDimensionPixelSize(
+                R.styleable.ninephoto_ninephoto_hspace, mHSpace);
+        mVSpace = t.getDimensionPixelSize(
+                R.styleable.ninephoto_ninephoto_vspace, mVSpace);
         t.recycle();
 
         addPhotoView = new View(context);
@@ -75,12 +75,13 @@ public class NinePhotoView extends ViewGroup {
 
     @Override
     protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {
+        logout("onLayout()");
         int childCount = this.getChildCount();
         for (int index = 0; index < childCount; index++) {
             View child = this.getChildAt(index);
             LayoutParams lParams = (LayoutParams) child.getLayoutParams();
-            child.layout(lParams.left, lParams.top, lParams.left + childWidth,
-                    lParams.top + childHeight);
+            child.layout(lParams.left, lParams.top, lParams.left + mChildWidth,
+                    lParams.top + mChildHeight);
 
             if (index == mImageResArrayList.size() - 1 && mImageResArrayList.size() < MAX_PHOTO_NUMBER + 2) {
                 child.setBackgroundResource(R.drawable.add_photo);
@@ -120,11 +121,12 @@ public class NinePhotoView extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        logout("onMeasure()");
         int rw = MeasureSpec.getSize(widthMeasureSpec);
         int rh = MeasureSpec.getSize(heightMeasureSpec);
 
-        childWidth = (rw - 2 * hSpace) / 3;
-        childHeight = childWidth;
+        mChildWidth = (rw - 2 * mHSpace) / 3;
+        mChildHeight = mChildWidth;
 
         int childCount = this.getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -132,16 +134,16 @@ public class NinePhotoView extends ViewGroup {
             //this.measureChild(child, widthMeasureSpec, heightMeasureSpec);
 
             LayoutParams lParams = (LayoutParams) child.getLayoutParams();
-            lParams.left = (i % 3) * (childWidth + hSpace);
-            lParams.top = (i / 3) * (childWidth + vSpace);
+            lParams.left = (i % 3) * (mChildWidth + mHSpace);
+            lParams.top = (i / 3) * (mChildWidth + mVSpace);
         }
 
         int vw = rw;
         int vh = rh;
         if (childCount < 3) {
-            vw = childCount * (childWidth + hSpace);
+            vw = childCount * (mChildWidth + mHSpace);
         }
-        vh = ((childCount + 3) / 3) * (childWidth + vSpace);
+        vh = ((childCount + 3) / 3) * (mChildWidth + mVSpace);
         setMeasuredDimension(vw, vh);
     }
 

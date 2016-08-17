@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:ninephoto_hspace="10dp"
-        app:ninephoto_vspace="10dp"
-        app:rainbowbar_color="@android:color/holo_blue_bright" >
+        app:ninephoto_vspace="10dp" >
 
     </com.xx.demoproject.demofactory.customviews.NinePhotoView>
 

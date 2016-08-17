@@ -10,10 +10,11 @@ import android.widget.Switch;
 
 import com.xx.demoproject.demofactory.R;
 import com.xx.demoproject.demofactory.customviews.RainbowBar;
+import com.xx.demoproject.demofactory.customviews.SlotGameView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mBtn1, mBtn2;
+    private Button mBtn1, mBtn2, mBtn3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtn2 = (Button) findViewById(R.id.main_activity_btn2);
         mBtn2.setText("CustomViewGroupActivity");
         mBtn2.setOnClickListener(this);
+
+        mBtn3 = (Button) findViewById(R.id.main_activity_btn3);
+        mBtn3.setText("SlotGameActivity");
+        mBtn3.setOnClickListener(this);
     }
 
     @Override
@@ -37,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_activity_btn2:
                 jumpToActivity(CustomViewGroupActivity.class);
+                break;
+            case R.id.main_activity_btn3:
+                jumpToActivity(SlotGameActivity.class);
+                break;
             default:
                 break;
         }
