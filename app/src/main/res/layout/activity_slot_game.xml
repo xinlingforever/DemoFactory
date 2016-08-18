@@ -10,11 +10,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.xx.demoproject.demofactory.activities.SlotGameActivity">
 
-    <com.xx.demoproject.demofactory.customviews.SlotGameView
+    <com.xx.demoproject.demofactory.customviews.SlotGameGroupView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:slot_width="80dp"
-        app:slot_height="80dp"
-        android:id="@+id/slotgame"/>
+        app:slot_hspace="10dp"
+        android:id="@+id/slotgame" />
 
 </RelativeLayout>

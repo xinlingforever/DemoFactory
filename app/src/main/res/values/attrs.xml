@@ -12,7 +12,6 @@
     </declare-styleable>
 
     <declare-styleable name="slotgame">
-        <attr name="slot_width" format="dimension"></attr>
-        <attr name="slot_height" format="dimension"></attr>
+        <attr name="slot_hspace" format="dimension"></attr>
     </declare-styleable>
 </resources>
