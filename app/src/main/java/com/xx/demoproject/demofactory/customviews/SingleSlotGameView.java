@@ -32,6 +32,8 @@ public class SingleSlotGameView extends View {
             R.drawable.image_6
     };
 
+    private Bitmap[] mBitmapArray = new Bitmap[mPicArray.length];
+
     //pic width
     private int mPicWidth = 0;
     //pic height
@@ -62,16 +64,10 @@ public class SingleSlotGameView extends View {
         int fPicIndex = mCurPicIndex;
         int sPicIndex = (mCurPicIndex - 1) >= 0 ? (mCurPicIndex - 1) : (mPicArray.length - 1);
 
-        Bitmap firstBitmap = BitmapFactory.decodeResource(getResources(), mPicArray[fPicIndex]);
-        Bitmap secBitmap = BitmapFactory.decodeResource(getResources(), mPicArray[sPicIndex]);
-
-        firstBitmap = Bitmap.createScaledBitmap(firstBitmap, mPicWidth, mPicHeight, true);
-        secBitmap = Bitmap.createScaledBitmap(secBitmap, mPicWidth, mPicHeight, true);
-
         //draw first pic
-        canvas.drawBitmap(firstBitmap, 0, mStart, null);
+        canvas.drawBitmap(mBitmapArray[fPicIndex], 0, mStart, null);
         //draw second pic
-        canvas.drawBitmap(secBitmap, 0, mStart-mPicHeight, null);
+        canvas.drawBitmap(mBitmapArray[sPicIndex], 0, mStart-mPicHeight, null);
 
         mStart += mDelta;
         if (mStart >= mPicHeight){
@@ -99,7 +95,12 @@ public class SingleSlotGameView extends View {
             mDelta = random.nextInt(slotSpeed);
         }
 
-        logout("mDelta:"+mDelta);
+        //create pics
+        for (int i=0; i<mPicArray.length; i++){
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mPicArray[i]);
+            bitmap = Bitmap.createScaledBitmap(bitmap, mPicWidth, mPicHeight, true);
+            mBitmapArray[i] = bitmap;
+        }
 
         setMeasuredDimension(mPicWidth, mPicHeight);
     }
