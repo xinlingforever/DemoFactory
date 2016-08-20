@@ -13,5 +13,6 @@
 
     <declare-styleable name="slotgame">
         <attr name="slot_hspace" format="dimension"></attr>
+        <attr name="slot_vspace" format="dimension"></attr>
     </declare-styleable>
 </resources>

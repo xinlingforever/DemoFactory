@@ -45,6 +45,8 @@ public class SingleSlotGameView extends View {
     //current pic index
     private int mCurPicIndex = 0;
 
+    private boolean mIsNeedStop = false;
+
     public SingleSlotGameView(Context context) {
         super(context);
     }
@@ -74,7 +76,9 @@ public class SingleSlotGameView extends View {
             mStart = 0;
             mCurPicIndex = sPicIndex;
         }
-        invalidate();
+        if (!mIsNeedStop) {
+            invalidate();
+        }
     }
 
     @Override
@@ -103,6 +107,14 @@ public class SingleSlotGameView extends View {
         }
 
         setMeasuredDimension(mPicWidth, mPicHeight);
+    }
+
+    public void setStopFlag(boolean b){
+        mIsNeedStop = b;
+    }
+
+    public boolean getStopFlag(){
+        return mIsNeedStop;
     }
 
     private void logout(final String trace){

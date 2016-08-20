@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:slot_hspace="10dp"
+        app:slot_vspace="50dp"
         android:id="@+id/slotgame" />
 
 </RelativeLayout>
