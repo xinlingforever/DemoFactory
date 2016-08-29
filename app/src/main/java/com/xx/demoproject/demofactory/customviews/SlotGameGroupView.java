@@ -17,7 +17,7 @@ public class SlotGameGroupView extends ViewGroup {
 
     private final String TAG = "SlotGameGroupView";
 
-    private final int CHILD_VIEW_NUM = 3;
+    public final static int CHILD_VIEW_NUM = 3;
 
     //pic width
     private int mChildWidth = 80;
@@ -62,7 +62,7 @@ public class SlotGameGroupView extends ViewGroup {
         }
 
         for (int k=0; k<getChildCount(); k++){
-            logout("child:"+k+" is:"+getChildAt(k).getClass());
+            //logout("child:"+k+" is:"+getChildAt(k).getClass());
         }
     }
 
@@ -81,15 +81,20 @@ public class SlotGameGroupView extends ViewGroup {
                 final CustomBtnView child = (CustomBtnView) getChildAt(i);
                 LayoutParams childParam = (LayoutParams) child.getLayoutParams();
                 child.layout(childParam.left, childParam.top, childParam.left + mChildWidth, childParam.top + mChildHeight);
+                final SingleSlotGameView slotChild = (SingleSlotGameView) getChildAt(indexOfChild(child)-CHILD_VIEW_NUM);
                 child.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int index = indexOfChild(child);
-                        SingleSlotGameView slotChild = (SingleSlotGameView) getChildAt(index-CHILD_VIEW_NUM);
-                        slotChild.setStopFlag(!slotChild.getStopFlag());
-                        if (slotChild.getStopFlag() == false){
-                            slotChild.invalidate();
+                        if (slotChild.getCurStatus() == SingleSlotGameView.STATUS_RUNNING){
+                            slotChild.stop();
+                            child.setBtnText("STOPPING");
+                            child.invalidate();
+                        }else{
+                            slotChild.start();
+                            child.setBtnText("STOP");
+                            child.invalidate();
                         }
+                        logout("curPicIndex:"+slotChild.getCurrentPicIndex()+" startPoine:"+slotChild.getStartPoint());
                     }
                 });
             }

@@ -1,15 +1,12 @@
 package com.xx.demoproject.demofactory.customviews;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.xx.demoproject.demofactory.R;
 import com.xx.demoproject.demofactory.env.AppEnv;
@@ -23,14 +20,24 @@ public class SingleSlotGameView extends View {
 
     private final String TAG = "SingleSlotGameView";
 
-    public static int slotSpeed = 40;
-
     //pic array
     private int[] mPicArray = {
+            R.drawable.image_0,
+            R.drawable.image_1,
+            R.drawable.image_2,
+            R.drawable.image_3,
             R.drawable.image_4,
             R.drawable.image_5,
-            R.drawable.image_6
+            R.drawable.image_6,
+            R.drawable.image_7,
+            R.drawable.image_8
     };
+
+    public final static int STATUS_RUNNING = 0;
+    public final static int STATUS_STOPPING = 1;
+    public final static int STATUS_STOPPED = 2;
+
+    private int mCurStatus = STATUS_RUNNING;
 
     private Bitmap[] mBitmapArray = new Bitmap[mPicArray.length];
 
@@ -39,9 +46,9 @@ public class SingleSlotGameView extends View {
     //pic height
     private int mPicHeight = 0;
     //start point
-    private int mStart = 0;
+    private float mStart = 0f;
     //speed
-    private int mDelta = 10;
+    private float mDelta = 10f;
     //current pic index
     private int mCurPicIndex = 0;
 
@@ -70,14 +77,24 @@ public class SingleSlotGameView extends View {
         canvas.drawBitmap(mBitmapArray[fPicIndex], 0, mStart, null);
         //draw second pic
         canvas.drawBitmap(mBitmapArray[sPicIndex], 0, mStart-mPicHeight, null);
-
+        //logout("mstart:" + mStart + " mDelta:"+mDelta);
         mStart += mDelta;
         if (mStart >= mPicHeight){
             mStart = 0;
             mCurPicIndex = sPicIndex;
         }
-        if (!mIsNeedStop) {
+        logout("mIsNeedStop:"+mIsNeedStop+" mCurstatus:"+mCurStatus);
+        if (mIsNeedStop == true && mCurStatus == STATUS_STOPPING) {
+            mDelta--;
+        }
+        if (mDelta > 0 && mCurStatus != STATUS_STOPPED) {
             invalidate();
+        }else{
+            mCurStatus = STATUS_STOPPED;
+            SlotGameGroupView parent = (SlotGameGroupView) getParent();
+            parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM).setClickable(true);
+            ((CustomBtnView)parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM)).setBtnText("START");
+            parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM).invalidate();
         }
     }
 
@@ -87,17 +104,15 @@ public class SingleSlotGameView extends View {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
 
-        logout("width:"+width+" height:"+height);
+        //logout("width:"+width+" height:"+height);
 
         mPicWidth = width;
         mPicHeight = height;
 
         Random random = new Random();
-        if (slotSpeed > mPicHeight || slotSpeed <= 0) {
-            mDelta = random.nextInt(mPicHeight);
-        }else {
-            mDelta = random.nextInt(slotSpeed);
-        }
+        //mDelta must be divisiable by mPicHeight
+        mDelta = ((random.nextInt(9)+1)/10.0f) * mPicHeight;
+        logout("mDelta:"+mDelta);
 
         //create pics
         for (int i=0; i<mPicArray.length; i++){
@@ -109,12 +124,40 @@ public class SingleSlotGameView extends View {
         setMeasuredDimension(mPicWidth, mPicHeight);
     }
 
-    public void setStopFlag(boolean b){
+    public void stop(){
+        if (mCurStatus == STATUS_STOPPING || mCurStatus == STATUS_STOPPED){
+            return;
+        }
+        mCurStatus = STATUS_STOPPING;
+        SlotGameGroupView parent = (SlotGameGroupView) getParent();
+        parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM).setClickable(false);
+        setStopFlag(true);
+    }
+
+    public void start(){
+        if (mCurStatus == STATUS_RUNNING || mCurStatus == STATUS_STOPPING){
+            return;
+        }
+        mCurStatus = STATUS_RUNNING;
+        setStopFlag(false);
+        requestLayout();
+        invalidate();
+    }
+
+    private void setStopFlag(boolean b){
         mIsNeedStop = b;
     }
 
-    public boolean getStopFlag(){
-        return mIsNeedStop;
+    public int getCurStatus(){
+        return mCurStatus;
+    }
+
+    public int getCurrentPicIndex(){
+        return mCurPicIndex;
+    }
+
+    public float getStartPoint(){
+        return mStart;
     }
 
     private void logout(final String trace){

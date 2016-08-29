@@ -24,8 +24,9 @@ public class CustomBtnView extends View {
     private int mHeight = 80;
 
     private Paint mPaint;
-    private Rect mRect;
 
+    private String mBtnText = "STOP";
+    private int mBtnTextColor = Color.parseColor("black");
     private float mTextFont = 60f;
 
     public CustomBtnView(Context context) {
@@ -73,13 +74,18 @@ public class CustomBtnView extends View {
 
         canvas.drawPatch(ninePatch, rect, null);
 
-        String str = "STOP";
+        String str = mBtnText;
         int textLength = getTextViewRect(mPaint, str).width();
         int textHeight = getTextViewRect(mPaint, str).height();
         canvas.drawText(str, 0, str.length(), (mWidth-textLength)/2, (mHeight-textHeight)/2+textHeight, mPaint);
 //        Rect r = new Rect((mWidth-textLength)/2, (mHeight-textHeight)/2, (mWidth-textLength)/2+getTextViewRect(mPaint, str).width(), (mHeight-textHeight)/2+getTextViewRect(mPaint, str).height());
 //        canvas.drawRect(r, mPaint);
 
+    }
+
+    public void setBtnText(final String str, int color){
+        mBtnText = str;
+        mBtnTextColor = Color.parseColor(color);
     }
 
     private Rect getTextViewRect(Paint paint, String text){
