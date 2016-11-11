@@ -10,7 +10,7 @@ import com.xx.demoproject.demofactory.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mBtn1, mBtn2, mBtn3;
+    private Button mBtn1, mBtn2, mBtn3, mBtn4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtn3 = (Button) findViewById(R.id.main_activity_btn3);
         mBtn3.setText("SlotGameActivity");
         mBtn3.setOnClickListener(this);
+
+        mBtn4 = (Button) findViewById(R.id.main_activity_btn4);
+        mBtn4.setText("SurfaceViewDemoActivity");
+        mBtn4.setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_activity_btn3:
                 jumpToActivity(SlotGameActivity.class);
+                break;
+            case R.id.main_activity_btn4:
+                jumpToActivity(SurfaceViewDemoActivity.class);
                 break;
             default:
                 break;

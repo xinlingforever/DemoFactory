@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".activities.RainbowBarActivity" />
         <activity android:name=".activities.CustomViewGroupActivity" />
-        <activity android:name=".activities.SlotGameActivity"></activity>
+        <activity android:name=".activities.SlotGameActivity" />
+        <activity android:name=".activities.SurfaceViewDemoActivity"></activity>
     </application>
 
 </manifest>

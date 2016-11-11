@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -93,7 +94,7 @@ public class SingleSlotGameView extends View {
             mCurStatus = STATUS_STOPPED;
             SlotGameGroupView parent = (SlotGameGroupView) getParent();
             parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM).setClickable(true);
-            ((CustomBtnView)parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM)).setBtnText("START");
+            ((CustomBtnView)parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM)).setBtnText("START", Color.parseColor("black"));
             parent.getChildAt(parent.indexOfChild(this)+SlotGameGroupView.CHILD_VIEW_NUM).invalidate();
         }
     }

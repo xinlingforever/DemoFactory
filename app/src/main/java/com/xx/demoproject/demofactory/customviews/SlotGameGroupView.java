@@ -2,6 +2,7 @@ package com.xx.demoproject.demofactory.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.Log;
 import android.util.AttributeSet;
 import android.view.View;
@@ -87,11 +88,11 @@ public class SlotGameGroupView extends ViewGroup {
                     public void onClick(View view) {
                         if (slotChild.getCurStatus() == SingleSlotGameView.STATUS_RUNNING){
                             slotChild.stop();
-                            child.setBtnText("STOPPING");
+                            child.setBtnText("STOPPING", Color.parseColor("grey"));
                             child.invalidate();
                         }else{
                             slotChild.start();
-                            child.setBtnText("STOP");
+                            child.setBtnText("STOP", Color.parseColor("black"));
                             child.invalidate();
                         }
                         logout("curPicIndex:"+slotChild.getCurrentPicIndex()+" startPoine:"+slotChild.getStartPoint());

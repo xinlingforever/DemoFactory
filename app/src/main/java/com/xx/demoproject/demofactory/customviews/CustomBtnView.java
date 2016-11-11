@@ -85,7 +85,7 @@ public class CustomBtnView extends View {
 
     public void setBtnText(final String str, int color){
         mBtnText = str;
-        mBtnTextColor = Color.parseColor(color);
+        mBtnTextColor = color;
     }
 
     private Rect getTextViewRect(Paint paint, String text){
