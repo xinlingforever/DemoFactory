@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xx.demoproject.demofactory">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,7 +22,9 @@
         <activity android:name=".activities.RainbowBarActivity" />
         <activity android:name=".activities.CustomViewGroupActivity" />
         <activity android:name=".activities.SlotGameActivity" />
-        <activity android:name=".activities.SurfaceViewDemoActivity"></activity>
+        <activity android:name=".activities.SurfaceViewDemoActivity" />
+        <activity android:name=".activities.HandsupNotificationActivity"></activity>
+        <service android:name=".activities.FBService"></service>
     </application>
 
 </manifest>
