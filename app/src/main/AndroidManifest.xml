@@ -23,8 +23,11 @@
         <activity android:name=".activities.CustomViewGroupActivity" />
         <activity android:name=".activities.SlotGameActivity" />
         <activity android:name=".activities.SurfaceViewDemoActivity" />
-        <activity android:name=".activities.HandsupNotificationActivity"></activity>
-        <service android:name=".activities.FBService"></service>
+        <activity android:name=".activities.HandsupNotificationActivity" />
+
+        <service android:name=".activities.FBService" />
+
+        <activity android:name=".activities.BlurViewActivity"></activity>
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ import com.xx.demoproject.demofactory.greendao.GreenDaoDemo;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mBtn0, mBtn1, mBtn2, mBtn3, mBtn4, mBtn5, mBtn6;
+    private Button mBtn0, mBtn1, mBtn2, mBtn3, mBtn4, mBtn5, mBtn6, mBtn7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtn6 = (Button) findViewById(R.id.main_activity_btn6);
         mBtn6.setText("flow window Demo");
         mBtn6.setOnClickListener(this);
+
+        mBtn7 = (Button) findViewById(R.id.main_activity_btn7);
+        mBtn7.setText("blur view Demo");
+        mBtn7.setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_activity_btn6:
                 jumpToService(FBService.class);
+                break;
+            case R.id.main_activity_btn7:
+                jumpToActivity(BlurViewActivity.class);
                 break;
             default:
                 break;

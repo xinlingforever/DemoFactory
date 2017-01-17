@@ -45,4 +45,10 @@
         android:id="@+id/main_activity_btn6"
         android:text=""/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_activity_btn7"
+        android:text=""/>
+
 </LinearLayout>

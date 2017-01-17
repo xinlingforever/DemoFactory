@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.xx.demoproject.demofactory"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -39,6 +39,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'org.greenrobot:greendao:3.2.0'
+
+    compile 'jp.wasabeef:blurry:2.1.0'
 }
 
 greendao {
