@@ -27,7 +27,11 @@
 
         <service android:name=".activities.FBService" />
 
-        <activity android:name=".activities.BlurViewActivity"></activity>
+        <activity android:name=".activities.BlurViewActivity" />
+        <activity
+            android:name=".activities.ButterKnifeDemoActivity"
+            android:label="@string/title_activity_butter_knife_demo"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

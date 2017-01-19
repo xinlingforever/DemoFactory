@@ -7,59 +7,74 @@ import android.view.View;
 import android.widget.Button;
 
 import com.xx.demoproject.demofactory.R;
-import com.xx.demoproject.demofactory.greendao.GreenDaoDemo;
+import com.xx.demoproject.demofactory.retrofit.RetrofitDemo2;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    private Button mBtn0, mBtn1, mBtn2, mBtn3, mBtn4, mBtn5, mBtn6, mBtn7;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    @BindView(R.id.misc_test_btn)
+    Button miscTestBtn;
+    @BindView(R.id.main_activity_btn1)
+    Button mainActivityBtn1;
+    @BindView(R.id.main_activity_btn2)
+    Button mainActivityBtn2;
+    @BindView(R.id.main_activity_btn3)
+    Button mainActivityBtn3;
+    @BindView(R.id.main_activity_btn4)
+    Button mainActivityBtn4;
+    @BindView(R.id.main_activity_btn5)
+    Button mainActivityBtn5;
+    @BindView(R.id.main_activity_btn6)
+    Button mainActivityBtn6;
+    @BindView(R.id.main_activity_btn7)
+    Button mainActivityBtn7;
+    @BindView(R.id.main_activity_btn8)
+    Button mainActivityBtn8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        mBtn0 = (Button) findViewById(R.id.misc_test_btn);
-        mBtn0.setText("misc test");
-        mBtn0.setOnClickListener(this);
-
-        mBtn1 = (Button) findViewById(R.id.main_activity_btn1);
-        mBtn1.setText("RainbowBarActivity");
-        mBtn1.setOnClickListener(this);
-
-        mBtn2 = (Button) findViewById(R.id.main_activity_btn2);
-        mBtn2.setText("CustomViewGroupActivity");
-        mBtn2.setOnClickListener(this);
-
-        mBtn3 = (Button) findViewById(R.id.main_activity_btn3);
-        mBtn3.setText("SlotGameActivity");
-        mBtn3.setOnClickListener(this);
-
-        mBtn4 = (Button) findViewById(R.id.main_activity_btn4);
-        mBtn4.setText("SurfaceViewDemoActivity");
-        mBtn4.setOnClickListener(this);
-
-        mBtn5 = (Button) findViewById(R.id.main_activity_btn5);
-        mBtn5.setText("HandsupNotificationActivity");
-        mBtn5.setOnClickListener(this);
-
-        mBtn6 = (Button) findViewById(R.id.main_activity_btn6);
-        mBtn6.setText("flow window Demo");
-        mBtn6.setOnClickListener(this);
-
-        mBtn7 = (Button) findViewById(R.id.main_activity_btn7);
-        mBtn7.setText("blur view Demo");
-        mBtn7.setOnClickListener(this);
+        miscTestBtn.setText("misc test");
+        mainActivityBtn1.setText("RainbowBarActivity");
+        mainActivityBtn2.setText("CustomViewGroupActivity");
+        mainActivityBtn3.setText("SlotGameActivity");
+        mainActivityBtn4.setText("SurfaceViewDemoActivity");
+        mainActivityBtn5.setText("HandsupNotificationActivity");
+        mainActivityBtn6.setText("flow window Demo");
+        mainActivityBtn7.setText("blur view Demo");
+        mainActivityBtn8.setText("butterknife Demo");
     }
 
-    @Override
+    private void jumpToActivity(Class aimActivity) {
+        Intent intent = new Intent();
+        intent.setClass(this, aimActivity);
+        startActivity(intent);
+    }
+
+    private void jumpToService(Class aimService) {
+        Intent intent = new Intent();
+        intent.setClass(this, aimService);
+        startService(intent);
+    }
+
+    @OnClick({R.id.misc_test_btn, R.id.main_activity_btn1, R.id.main_activity_btn2, R.id.main_activity_btn3, R.id.main_activity_btn4, R.id.main_activity_btn5, R.id.main_activity_btn6, R.id.main_activity_btn7, R.id.main_activity_btn8})
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.misc_test_btn:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         //RetrofitDemo.doTest(1);
-                        GreenDaoDemo.doTest();
+                        //RetrofitDemo2.doTest(RetrofitDemo2.TYPE_POST, RetrofitDemo2.TYPE_SYNC);
+                        RetrofitDemo2.doTest(RetrofitDemo2.TYPE_POST, RetrofitDemo2.TYPE_ASYNC);
+                        //GreenDaoDemo.doTest();
+                        //OkHttpDemo.doTest(OkHttpDemo.TYPE_ASYNC_POST);
                     }
                 }).start();
                 break;
@@ -84,20 +99,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_activity_btn7:
                 jumpToActivity(BlurViewActivity.class);
                 break;
+            case R.id.main_activity_btn8:
+                jumpToActivity(ButterKnifeDemoActivity.class);
+                break;
             default:
                 break;
         }
     }
-
-    private void jumpToActivity(Class aimActivity){
-        Intent intent = new Intent();
-        intent.setClass(this, aimActivity);
-        startActivity(intent);
-    }
-    private void jumpToService(Class aimService){
-        Intent intent = new Intent();
-        intent.setClass(this, aimService);
-        startService(intent);
-    }
-
 }
