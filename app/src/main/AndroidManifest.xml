@@ -31,7 +31,8 @@
         <activity
             android:name=".activities.ButterKnifeDemoActivity"
             android:label="@string/title_activity_butter_knife_demo"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".mvp.view.UserManagerActivity"></activity>
     </application>
 
 </manifest>
