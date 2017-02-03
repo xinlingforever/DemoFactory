@@ -32,7 +32,8 @@
             android:name=".activities.ButterKnifeDemoActivity"
             android:label="@string/title_activity_butter_knife_demo"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".mvp.view.UserManagerActivity"></activity>
+        <activity android:name=".mvp.view.UserManagerActivity" />
+        <activity android:name=".dagger2.car.CarActivity"></activity>
     </application>
 
 </manifest>

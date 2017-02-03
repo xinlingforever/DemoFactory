@@ -2,6 +2,8 @@ package com.xx.demoproject.demofactory;
 
 import android.app.Application;
 
+import com.xx.demoproject.demofactory.dagger2.data.DaggerDataModelComponent;
+import com.xx.demoproject.demofactory.dagger2.data.DataModelComponent;
 import com.xx.demoproject.demofactory.db.DaoMaster;
 import com.xx.demoproject.demofactory.db.DaoSession;
 
@@ -16,6 +18,8 @@ public class App extends Application {
 
     private static DaoSession daoSession;
 
+    private DataModelComponent mDataModelComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,6 +27,12 @@ public class App extends Application {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "notes-db-encrypted" : "notes-db");
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
+
+        mDataModelComponent = DaggerDataModelComponent.builder().build();
+    }
+
+    public DataModelComponent getDataModelComponent() {
+        return mDataModelComponent;
     }
 
     public static DaoSession getDaoSession() {

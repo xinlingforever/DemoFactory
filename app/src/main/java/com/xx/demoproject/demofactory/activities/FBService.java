@@ -2,6 +2,7 @@ package com.xx.demoproject.demofactory.activities;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +36,7 @@ public class FBService extends Service {
     private WindowManager.LayoutParams mParams;// 窗口的属性
 
     private View windowView;
-    Button mBtn1, mBtn2;
+    Button mBtn1, mBtn2, mBtn3;
 
     private float mTouchStartX;
     private float mTouchStartY;
@@ -63,6 +64,7 @@ public class FBService extends Service {
         mWindowManager.addView(windowView, mParams);
         mBtn1 = (Button) windowView.findViewById(R.id.btn1);
         mBtn2 = (Button) windowView.findViewById(R.id.btn2);
+        mBtn3 = (Button) windowView.findViewById(R.id.btn3);
         mBtn1.setOnClickListener(v -> Blurry.with(FBService.this)
                 .radius(25)
                 .sampling(1)
@@ -88,6 +90,13 @@ public class FBService extends Service {
                 }
 
                 blurred = !blurred;
+            }
+        });
+
+        mBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 

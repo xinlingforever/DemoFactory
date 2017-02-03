@@ -4,12 +4,11 @@ import android.text.TextUtils;
 
 import com.xx.demoproject.demofactory.App;
 import com.xx.demoproject.demofactory.db.DaoSession;
-import com.xx.demoproject.demofactory.db.User;
 import com.xx.demoproject.demofactory.db.UserDao;
+import com.xx.demoproject.demofactory.db.User;
 import com.xx.demoproject.demofactory.mvp.bean.UserBean;
 
 import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.List;
 

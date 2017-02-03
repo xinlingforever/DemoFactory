@@ -1,66 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/misc_test_btn"
-        android:text=""/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:isScrollContainer="true"
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn1"
-        android:text=""/>
+        <Button
+            android:id="@+id/misc_test_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn2"
-        android:text=""/>
+        <Button
+            android:id="@+id/main_activity_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn3"
-        android:text=""/>
+        <Button
+            android:id="@+id/main_activity_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn4"
-        android:text=""/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn5"
-        android:text=""/>
+        <Button
+            android:id="@+id/main_activity_btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn6"
-        android:text=""/>
+        <Button
+            android:id="@+id/main_activity_btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn7"
-        android:text=""/>
+        <Button
+            android:id="@+id/main_activity_btn5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn8"
-        android:text=""/>
+        <Button
+            android:id="@+id/main_activity_btn6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_activity_btn9"
-        android:text=""/>
+        <Button
+            android:id="@+id/main_activity_btn7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/main_activity_btn8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <Button
+            android:id="@+id/main_activity_btn9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <Button
+            android:id="@+id/main_activity_btn10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+    </LinearLayout>
+</ScrollView>

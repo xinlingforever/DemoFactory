@@ -3,19 +3,19 @@ package com.xx.demoproject.demofactory.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.xx.demoproject.demofactory.R;
+import com.xx.demoproject.demofactory.dagger2.car.CarActivity;
 import com.xx.demoproject.demofactory.mvp.view.UserManagerActivity;
-import com.xx.demoproject.demofactory.retrofit.RetrofitDemo2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     @BindView(R.id.misc_test_btn)
     Button miscTestBtn;
@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button mainActivityBtn8;
     @BindView(R.id.main_activity_btn9)
     Button mainActivityBtn9;
+    @BindView(R.id.main_activity_btn10)
+    Button mainActivityBtn10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainActivityBtn7.setText("blur view Demo");
         mainActivityBtn8.setText("butterknife Demo");
         mainActivityBtn9.setText("mvp demo");
+        mainActivityBtn10.setText("mvp+dagger2 demo");
     }
 
     private void jumpToActivity(Class aimActivity) {
@@ -77,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             R.id.main_activity_btn6,
             R.id.main_activity_btn7,
             R.id.main_activity_btn8,
-            R.id.main_activity_btn9})
+            R.id.main_activity_btn9,
+            R.id.main_activity_btn10})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.misc_test_btn:
@@ -86,9 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void run() {
                         //RetrofitDemo.doTest(1);
                         //RetrofitDemo2.doTest(RetrofitDemo2.TYPE_POST, RetrofitDemo2.TYPE_SYNC);
-                        RetrofitDemo2.doTest(RetrofitDemo2.TYPE_POST, RetrofitDemo2.TYPE_ASYNC);
+                        //RetrofitDemo2.doTest(RetrofitDemo2.TYPE_POST, RetrofitDemo2.TYPE_ASYNC);
                         //GreenDaoDemo.doTest();
-                        //OkHttpDemo.doTest(OkHttpDemo.TYPE_ASYNC_POST);
+//                        //OkHttpDemo.doTest(OkHttpDemo.TYPE_ASYNC_POST);
                     }
                 }).start();
                 break;
@@ -119,8 +123,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_activity_btn9:
                 jumpToActivity(UserManagerActivity.class);
                 break;
+            case R.id.main_activity_btn10:
+                jumpToActivity(CarActivity.class);
+                break;
             default:
                 break;
         }
     }
+
 }
