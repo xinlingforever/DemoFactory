@@ -2,9 +2,18 @@ package com.xx.demoproject.demofactory.retrofit;
 
 import android.util.Log;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.io.IOException;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +26,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
+ * 一个Retrofit2+Rxjava2的例子
+ *
  * Created by xuxin on 2017/1/19.
  */
 
@@ -96,7 +107,7 @@ public class RetrofitDemo2 {
 
     public interface DouBanService {
         @GET("book/search")
-        Call<BookResponse> getSearchBooks(
+        Observable<BookResponse> getSearchBooksByGet(
                 @Query("q") String name,
                 @Query("tag") String tag,
                 @Query("start") int start,
@@ -105,7 +116,7 @@ public class RetrofitDemo2 {
 
         @FormUrlEncoded
         @POST("book/search")
-        Call<BookResponse> getSearchBooksByPost(
+        Observable<BookResponse> getSearchBooksByPost(
                 @Field("q") String name,
                 @Field("tag") String tag,
                 @Field("start") int start,
@@ -113,71 +124,38 @@ public class RetrofitDemo2 {
         );
     }
 
-    public static void doTest(final int requestType, final int handleType){
+    public static void doTest() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.douban.com/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         DouBanService douBanService = retrofit.create(DouBanService.class);
 
-        Call<BookResponse> call;
-        if (requestType == TYPE_GET) {
-            call = douBanService.getSearchBooks("小王子", null, 0, 3);
-        }else{
-            call = douBanService.getSearchBooksByPost("小王子", null, 0, 3);
-        }
-
-        switch (handleType) {
-            case TYPE_SYNC:
-                syncRequest(call);
-                break;
-            case TYPE_ASYNC:
-                asyncRequest(call);
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    //sync get request
-    private static void syncRequest(Call call) {
-        if (call != null) {
-            try {
-                Response response = call.execute();
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "sync request:" + call.request().toString());
-                    Log.d(TAG, "sync:" + response.toString());
-                }else{
-                    Log.d(TAG, "sync fail, code:"+response.code());
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //async get request
-    private static void asyncRequest(Call call) {
-        if (call != null) {
-            call.enqueue(new Callback() {
-                @Override
-                public void onResponse(Call call, Response response) {
-                    if (response.isSuccessful()) {
-                        Log.d(TAG, "async request:" + call.request().toString());
-                        Log.d(TAG, "async succ:" + response.body().toString());
-                    }else{
-                        Log.d(TAG, "async fail: code:"+response.code());
+        douBanService.getSearchBooksByGet("小王子", null, 0, 3)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BookResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe");
                     }
-                }
 
-                @Override
-                public void onFailure(Call call, Throwable t) {
-                    Log.d(TAG, "async request fail");
-                }
-            });
-        }
+                    @Override
+                    public void onNext(BookResponse bookResponse) {
+                        Log.d(TAG, "onNext info:" + bookResponse.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError:" + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete");
+                    }
+                });
     }
-
 }

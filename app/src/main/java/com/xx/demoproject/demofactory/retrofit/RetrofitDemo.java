@@ -17,11 +17,15 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 /**
+ * 一个简单的访问github的例子
+ *
  * Created by xx on 11/11/16.
  */
 
 public class RetrofitDemo {
     public static final String API_URL = "https://api.github.com";
+
+    private static final String TAG = "RetrofitDemo";
 
     public static class Contributor {
         public final String login;
@@ -84,7 +88,7 @@ public class RetrofitDemo {
                 public void onResponse(Call<List<Contributor>> call, Response<List<Contributor>> response) {
                     try {
                         for (Contributor contributor : response.body()) {
-                            Log.d("xx", "async, " + contributor.login + " (" + contributor.contributions + ")" + " id:"+contributor.id);
+                            Log.d(TAG, "async, " + contributor.login + " (" + contributor.contributions + ")" + " id:"+contributor.id);
                         }
                     }catch(Exception e){
                         e.printStackTrace();
@@ -102,7 +106,7 @@ public class RetrofitDemo {
             try {
                 List<Contributor> contributors = call.execute().body();
                 for (Contributor contributor : contributors) {
-                    Log.d("xx", "sync" + contributor.login + " (" + contributor.contributions + ")" + " id1:"+contributor.id);
+                    Log.d(TAG, "sync" + contributor.login + " (" + contributor.contributions + ")" + " id1:"+contributor.id);
                 }
             }catch(Exception e){
                 e.printStackTrace();

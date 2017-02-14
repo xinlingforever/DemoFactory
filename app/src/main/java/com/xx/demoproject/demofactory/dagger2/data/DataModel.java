@@ -15,11 +15,11 @@ import javax.inject.Singleton;
 /**
  * Created by xuxin on 2017/2/3.
  */
-@Singleton
+
 public class DataModel implements IDataModel {
 
     @Inject
-    DataModel(){
+    public DataModel(){
 
     }
 

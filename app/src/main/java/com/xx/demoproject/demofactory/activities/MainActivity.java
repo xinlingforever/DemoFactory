@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.xx.demoproject.demofactory.R;
 import com.xx.demoproject.demofactory.dagger2.car.CarActivity;
 import com.xx.demoproject.demofactory.mvp.view.UserManagerActivity;
+import com.xx.demoproject.demofactory.retrofit.RetrofitDemo2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,11 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        //RetrofitDemo.doTest(1);
-                        //RetrofitDemo2.doTest(RetrofitDemo2.TYPE_POST, RetrofitDemo2.TYPE_SYNC);
-                        //RetrofitDemo2.doTest(RetrofitDemo2.TYPE_POST, RetrofitDemo2.TYPE_ASYNC);
-                        //GreenDaoDemo.doTest();
-//                        //OkHttpDemo.doTest(OkHttpDemo.TYPE_ASYNC_POST);
+                        RetrofitDemo2.doTest();
                     }
                 }).start();
                 break;

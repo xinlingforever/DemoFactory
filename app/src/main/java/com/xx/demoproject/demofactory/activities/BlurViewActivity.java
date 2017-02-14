@@ -16,6 +16,8 @@ import jp.wasabeef.blurry.Blurry;
 
 public class BlurViewActivity extends Activity {
 
+    private final String TAG = "BlurViewActivity";
+
     Button mBtn1, mBtn2;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +95,7 @@ public class BlurViewActivity extends Activity {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     float value = (Float) animation.getAnimatedValue();
-                    Log.d("xx", "value:"+value);
+                    Log.d(TAG, "value:"+value);
                     if (value == 0) {
                         viewGroup.removeView(view);
                     }

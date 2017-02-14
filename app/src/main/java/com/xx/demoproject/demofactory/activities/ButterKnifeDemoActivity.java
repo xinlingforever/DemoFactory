@@ -18,6 +18,8 @@ import butterknife.OnClick;
 
 public class ButterKnifeDemoActivity extends AppCompatActivity {
 
+    private final String TAG = "ButterKnifeDemoActivity";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.include)
@@ -47,7 +49,7 @@ public class ButterKnifeDemoActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn)
     public void onClick(Button btn) {
-        Log.d("xx", "click btn");
+        Log.d(TAG, "click btn");
         btn.setText("clicked");
     }
 }

@@ -18,6 +18,8 @@ import java.util.List;
 
 public class GreenDaoDemo {
 
+    private static final String TAG = "GreenDaoDemo";
+
     private static UserDao userDao;
     private static Query<User> userQuery;
 
@@ -31,14 +33,14 @@ public class GreenDaoDemo {
             _user.setFirstName("fname_"+i);
             _user.setLastName("lname_"+i);
             Long _id = userDao.insertOrReplace(_user);
-            Log.d("xx", "insert id:"+_id);
+            Log.d(TAG, "insert id:"+_id);
         }
 
         // query all notes, sorted a-z by their text
         userQuery = userDao.queryBuilder().orderAsc(UserDao.Properties.Id).build();
         List<User> userList = userQuery.list();
         for (User user : userList){
-            Log.d("xx", "id:"+user.getId()+" fname:"+user.getFirstName()+" lname:"+user.getLastName());
+            Log.d(TAG, "id:"+user.getId()+" fname:"+user.getFirstName()+" lname:"+user.getLastName());
         }
 
 

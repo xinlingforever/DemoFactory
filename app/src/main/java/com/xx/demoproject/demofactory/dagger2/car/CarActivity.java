@@ -6,10 +6,13 @@ import android.os.Bundle;
 
 import com.xx.demoproject.demofactory.App;
 import com.xx.demoproject.demofactory.R;
+import com.xx.demoproject.demofactory.dagger2.data.DataModel;
 
 import javax.inject.Inject;
 
 public class CarActivity extends AppCompatActivity {
+
+    public static final String TAG = "dagger2";
 
     @Inject
     CarPresenter mCarPresenter;
@@ -29,8 +32,8 @@ public class CarActivity extends AppCompatActivity {
 
         DaggerCarComponent
                 .builder()
-                .dataModelComponent(((App) getApplication()).getDataModelComponent())
-                .carPresenterModule(new CarPresenterModule(carFragment))
+                //.dataModelComponent(((App) getApplication()).getDataModelComponent())
+                .carPresenterModule(new CarPresenterModule(carFragment, new DataModel()))
                 .build()
                 .inject(this);
 

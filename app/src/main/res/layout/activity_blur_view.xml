@@ -43,4 +43,12 @@
         android:layout_toEndOf="@+id/btn1"
         android:layout_marginStart="220dp" />
 
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn1"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btn3" />
+
 </RelativeLayout>

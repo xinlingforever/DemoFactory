@@ -3,77 +3,94 @@ package com.xx.demoproject.demofactory.rxjava;
 
 import android.util.Log;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by xx on 11/14/16.
  */
 
 public class RxJavaDemo {
-    public static void doTest() {
-        String[] names = {"abc","def","ghi","jkl"};
 
-        Observable.from(names)
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        Log.d("xx", "s:"+s);
-                    }
-                });
-
-        myObservable2.subscribe(onNextAction);
-        myTest();
-        myTest2();
-    }
-
-    private static Observable<String> myObservable = Observable.create(
-            new Observable.OnSubscribe<String>() {
-                @Override
-                public void call(Subscriber<? super String> sub) {
-                    sub.onNext("hello");
-                    sub.onCompleted();
+    private static final String TAG = "RxjavaDemo";
+    private static void doTest1(){
+        Observable<Integer> observable1 = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                for(int i=0; i<10; i++){
+                    e.onNext(i);
                 }
+            }
+        }).subscribeOn(Schedulers.io());
 
-    });
+        Observable<String> observable2 = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                for (int i=0; i<8; i++){
+                    e.onNext(""+i);
+                }
+            }
+        }).subscribeOn(Schedulers.newThread());
 
-    private static Subscriber<String> mySubscriber = new Subscriber<String>() {
-        @Override
-        public void onNext(String s) {
-            Log.d("xx", s);
-        }
-        @Override
-        public void onCompleted() {
-        }
-        @Override
-        public void onError(Throwable e){
-        }
-    };
-
-    private static Observable<String> myObservable2 = Observable.just("hello2");
-    private static Action1<String> onNextAction = new Action1<String>() {
-        public void call(String s){
-            Log.d("xx", s);
-        }
-    };
-
-    private static void myTest(){
-        Observable.just("hello3")
-                .subscribe(new Action1<String>() {
-                    public void call(String s){
-                        Log.d("xx", s);
-                    }
-                });
+        Observable.zip(observable1, observable2, new BiFunction<Integer, String, String>() {
+            @Override
+            public String apply(Integer integer, String s) throws Exception {
+                return integer+"_"+s;
+            }
+        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                Log.d(TAG, "s:"+s);
+            }
+        });
     }
 
-    private static void myTest2() {
-        Observable.just("hello4")
-                .map(s -> s + " -xx")
-                .subscribe(s -> Log.d("xx", s));
+    private static Subscription mSubscription;
+
+    private static void doTest2(){
+        Flowable<Integer> flowable = Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> e) throws Exception {
+                for (int i=0; ; i++){
+                    e.onNext(i);
+                }
+            }
+        }, BackpressureStrategy.LATEST).subscribeOn(Schedulers.newThread());
+
+        Subscriber<Integer> subscriber = new Subscriber<Integer>() {
+            @Override
+            public void onSubscribe(Subscription s) {
+                mSubscription = s;
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG, "onNext "+integer);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.d(TAG, "onError t:"+t);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete");
+            }
+        };
+
+        flowable.observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
     }
-
-
-
-
 }

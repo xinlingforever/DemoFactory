@@ -2,9 +2,7 @@ package com.xx.demoproject.demofactory.dagger2.car;
 
 import android.util.Log;
 
-import com.xx.demoproject.demofactory.dagger2.data.DaggerDataModelComponent;
 import com.xx.demoproject.demofactory.dagger2.data.DataModel;
-import com.xx.demoproject.demofactory.dagger2.data.IDataModel;
 
 import javax.inject.Inject;
 
@@ -30,13 +28,13 @@ public class CarPresenter implements ICarContract.IPresenter {
 
     @Inject
     void print() {
-        Log.d("xx", "in presenter inject method print");
+        Log.d(CarActivity.TAG, "in presenter inject method print");
     }
 
     @Override
     public void loadGearName() {
         long id = mModel.saveDefaultGearName();
-        Log.d("xx", "save default gear id:"+id);
+        Log.d(CarActivity.TAG, "save default gear id:"+id);
         String gearName = mModel.getGearName(id);
         mView.showGearName(gearName);
     }
